@@ -40,6 +40,7 @@ npm run dev
 ### AI Lab Setup (Optional)
 
 1. Create `.env.local` file in the root directory:
+
 ```env
 VITE_OPENAI_API_KEY=your_openai_api_key_here
 ```
@@ -51,9 +52,10 @@ VITE_OPENAI_API_KEY=your_openai_api_key_here
 ### Profile Customization
 
 Edit `src/App.jsx` to update:
+
 - Personal information (`sampleData` object)
 - Projects, skills, timeline
-- Avatar image path (`src/assets/images/my-profile-pic.png`)
+- Avatar image path (`assets/images/my-profile-pic.png`)
 - Social media links
 
 ## 📱 Responsive Breakpoints
@@ -83,6 +85,7 @@ npm run lint         # Run ESLint
 ## 🚀 Deployment
 
 ### Build for production:
+
 ```bash
 npm run build
 ```
@@ -90,11 +93,13 @@ npm run build
 ### Deploy to hosting platforms:
 
 **Vercel / Netlify:**
+
 - Build command: `npm run build`
 - Output directory: `dist`
 - Environment variables: Add `VITE_OPENAI_API_KEY` if using AI features
 
 **GitHub Pages:**
+
 ```bash
 npm run build
 # Deploy the dist/ folder

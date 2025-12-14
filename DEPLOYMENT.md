@@ -42,11 +42,13 @@ git push -u origin master
 ## Deploy to GitHub Pages
 
 1. Install gh-pages:
+
 ```bash
 npm install --save-dev gh-pages
 ```
 
 2. Add to `package.json`:
+
 ```json
 {
   "scripts": {
@@ -58,14 +60,16 @@ npm install --save-dev gh-pages
 ```
 
 3. Update `vite.config.js`:
+
 ```js
 export default defineConfig({
-  base: '/your-portfolio/', // Replace with your repo name
+  base: "/your-portfolio/", // Replace with your repo name
   plugins: [react()],
-})
+});
 ```
 
 4. Deploy:
+
 ```bash
 npm run deploy
 ```
@@ -75,12 +79,16 @@ npm run deploy
 For production deployment with AI features:
 
 ### Option 1: Use Vercel/Netlify Dashboard
+
 Add environment variable through their web interface:
+
 - Variable: `VITE_OPENAI_API_KEY`
 - Value: `sk-proj-xxxxxxxxxxxxx`
 
 ### Option 2: Local .env.local
+
 For local testing only (not committed to git):
+
 ```env
 VITE_OPENAI_API_KEY=sk-proj-xxxxxxxxxxxxx
 ```
@@ -99,21 +107,25 @@ VITE_OPENAI_API_KEY=sk-proj-xxxxxxxxxxxxx
 ## Troubleshooting
 
 ### Issue: Images not loading
+
 - Check image paths in `src/App.jsx`
 - Ensure images are in `src/assets/images/`
 - Verify `import.meta.env.BASE_URL` usage for public assets
 
 ### Issue: 3D sphere not rendering
+
 - Check browser console for WebGL errors
 - Ensure Three.js dependencies are installed
 - Test on different browsers
 
 ### Issue: AI Lab not responding
+
 - Check if `VITE_OPENAI_API_KEY` is set (optional)
 - Should work with local fallback responses
 - Verify no console errors blocking execution
 
 ### Issue: Build fails
+
 ```bash
 # Clear cache and rebuild
 rm -rf node_modules dist
@@ -138,6 +150,7 @@ npm run build
 ## Performance Optimization
 
 Already implemented:
+
 - ✅ Vite for fast builds
 - ✅ Code splitting
 - ✅ Lazy loading for 3D components
