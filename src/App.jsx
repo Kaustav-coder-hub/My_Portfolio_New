@@ -39,7 +39,7 @@ export default function AIPoweredPortfolio() {
       "I build ML systems, IoT devices and web apps that make the impossible reproducible.",
     bio:
       "Student at JIS College. I work on deepfake detection, vocal emotion recognition, TrackBot for rails, and autonomous dustbin systems. I love combining hardware with light ML models.",
-    avatar: "src/assets/images/my-profile-pic.png",
+    avatar: "assets/images/my-profile-pic.png",
     socials: {
       github: "https://github.com/Kaustav-coder-hub/",
       linkedin: "https://www.linkedin.com/in/kaustav-chakraborty-2009292a9/",
