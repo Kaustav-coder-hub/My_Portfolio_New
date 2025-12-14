@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, Suspense } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { OrbitControls, Sphere, MeshDistortMaterial, Float } from "@react-three/drei";
+import profilePic from "./assets/images/my-profile-pic.png";
 
 // 3D Animated Sphere Component
 function AnimatedSphere() {
@@ -39,7 +40,7 @@ export default function AIPoweredPortfolio() {
       "I build ML systems, IoT devices and web apps that make the impossible reproducible.",
     bio:
       "Student at JIS College. I work on deepfake detection, vocal emotion recognition, TrackBot for rails, and autonomous dustbin systems. I love combining hardware with light ML models.",
-    avatar: "assets/images/my-profile-pic.png",
+    avatar: profilePic,
     socials: {
       github: "https://github.com/Kaustav-coder-hub/",
       linkedin: "https://www.linkedin.com/in/kaustav-chakraborty-2009292a9/",
