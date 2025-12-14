@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef, Suspense } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { OrbitControls, Sphere, MeshDistortMaterial, Float } from "@react-three/drei";
-import profilePic from "./assets/images/my-profile-pic.png";
+import profilePic from "./assets/images/my-profile-pic1.png";
+import profilePicHero from "./assets/images/my-profile-pic2.png";
 
 // 3D Animated Sphere Component
 function AnimatedSphere() {
@@ -41,6 +42,7 @@ export default function AIPoweredPortfolio() {
     bio:
       "Student at JIS College. I work on deepfake detection, vocal emotion recognition, TrackBot for rails, and autonomous dustbin systems. I love combining hardware with light ML models.",
     avatar: profilePic,
+    heroAvatar: profilePicHero,
     socials: {
       github: "https://github.com/Kaustav-coder-hub/",
       linkedin: "https://www.linkedin.com/in/kaustav-chakraborty-2009292a9/",
@@ -143,6 +145,9 @@ export default function AIPoweredPortfolio() {
     timeline: [
       { year: "2019", event: "Started programming; built small Arduino projects" },
       { year: "2022", event: "First ML project: VocalEmotion" },
+      { year: "2023", event: "BCT (Blockchain Technology) Training & Certification" },
+      { year: "2024", event: "Cyber Security Certification & Training" },
+      { year: "2024", event: "Smart India Hackathon - ISRO Project" },
       { year: "2024", event: "Deepfake detection web app deployed" }
     ],
     skills: [
@@ -396,7 +401,17 @@ Answer professionally, technically, and concisely. If question is personal, resp
 
   function handleContact(e) {
     e.preventDefault();
-    alert("Contact form submitted. Replace this with EmailJS or backend call.");
+    const formData = new FormData(e.target);
+    const name = formData.get('name');
+    const email = formData.get('email');
+    const subject = formData.get('subject');
+    const message = formData.get('message');
+    
+    // Create mailto link
+    const mailtoLink = `mailto:kaustav.portfolio@protonmail.com?subject=${encodeURIComponent(subject || 'Portfolio Contact')}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`)}`;
+    
+    // Open default email client
+    window.location.href = mailtoLink;
   }
 
   return (
@@ -475,7 +490,7 @@ Answer professionally, technically, and concisely. If question is personal, resp
               </div>
               <div className="text-xs text-center text-gray-500 pt-2">
                 <a 
-                  href="https://x.com/your-handle" 
+                  href="https://x.com/ProgramarL" 
                   target="_blank" 
                   rel="noreferrer"
                   className="bg-gradient-to-r from-cyan-500/10 to-blue-500/10 rounded-lg p-3 border border-cyan-500/20 hover:border-cyan-400/40 transition-all duration-300 flex items-center justify-center gap-2 group"
@@ -549,7 +564,7 @@ Answer professionally, technically, and concisely. If question is personal, resp
 
                 <div className="relative w-full md:w-auto flex-shrink-0">
                   <div className="w-48 h-48 md:w-56 md:h-56 mx-auto rounded-full bg-gradient-to-br from-cyan-400/20 to-blue-600/20 p-1 shadow-2xl shadow-cyan-500/30 ring-4 ring-cyan-500/10">
-                    <img src={sampleData.avatar} alt="avatar" className="w-full h-full rounded-full object-cover ring-2 ring-white/10" />
+                    <img src={sampleData.heroAvatar} alt="avatar" className="w-full h-full rounded-full object-cover ring-2 ring-white/10" />
                   </div>
                   <div className="absolute -bottom-4 left-1/2 transform -translate-x-1/2 px-4 py-2 bg-gradient-to-r from-cyan-500/90 to-blue-600/90 rounded-full backdrop-blur-sm shadow-lg">
                     <span className="text-xs font-semibold text-white">Available for Collaboration</span>
@@ -792,25 +807,33 @@ Answer professionally, technically, and concisely. If question is personal, resp
             <form onSubmit={handleContact} className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="col-span-1 md:col-span-2">
                 <input 
+                  name="name"
                   placeholder="Your name" 
+                  required
                   className="w-full p-4 rounded-xl bg-white/5 backdrop-blur-sm outline-none border border-white/10 focus:border-cyan-400/50 focus:bg-white/10 transition-all duration-300 placeholder-gray-500 text-gray-200"
                 />
               </div>
               
               <input 
+                name="email"
                 placeholder="Email address" 
                 type="email"
+                required
                 className="col-span-1 p-4 rounded-xl bg-white/5 backdrop-blur-sm outline-none border border-white/10 focus:border-cyan-400/50 focus:bg-white/10 transition-all duration-300 placeholder-gray-500 text-gray-200"
               />
               
               <input 
+                name="subject"
                 placeholder="Subject" 
+                required
                 className="col-span-1 p-4 rounded-xl bg-white/5 backdrop-blur-sm outline-none border border-white/10 focus:border-cyan-400/50 focus:bg-white/10 transition-all duration-300 placeholder-gray-500 text-gray-200"
               />
               
               <textarea 
+                name="message"
                 placeholder="Your message..." 
                 rows="5"
+                required
                 className="col-span-1 md:col-span-2 p-4 rounded-xl bg-white/5 backdrop-blur-sm outline-none border border-white/10 focus:border-cyan-400/50 focus:bg-white/10 transition-all duration-300 placeholder-gray-500 text-gray-200 resize-none"
               />
               
