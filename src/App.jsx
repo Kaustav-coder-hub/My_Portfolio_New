@@ -55,7 +55,7 @@ export default function AIPoweredPortfolio() {
         demo: null,
         status: "active",
         completionDate: "2024",
-        github: "https://github.com/Kaustav-coder-hub/deepfake-detection",
+        github: "https://github.com/Kaustav-coder-hub/DeepFakeDetection-model",
         deployed: true
       },
       {
@@ -89,6 +89,50 @@ export default function AIPoweredPortfolio() {
         status: "inactive",
         completionDate: "2022",
         github: null,
+        deployed: false
+      },
+      {
+        id: 5,
+        title: "AutoCV - Resume Scoring System",
+        short: "Automated resume analysis and scoring system using NLP. Evaluates resumes against job descriptions with intelligent matching algorithms.",
+        tags: ["Python", "NLP", "Machine Learning", "Flask"],
+        demo: null,
+        status: "completed",
+        completionDate: "2024",
+        github: "https://github.com/Kaustav-coder-hub/AutoCV---Resume-Scoring-System",
+        deployed: false
+      },
+      {
+        id: 6,
+        title: "SIH ISRO Project (Frontend + Backend)",
+        short: "Smart India Hackathon project for ISRO. Full-stack application with Python backend and modern frontend for space technology solutions.",
+        tags: ["Python", "React", "Full Stack", "ISRO", "SIH"],
+        demo: null,
+        status: "completed",
+        completionDate: "2024",
+        github: "https://github.com/Kaustav-coder-hub/SIH-ISRO_Frontend_Hosting",
+        deployed: false
+      },
+      {
+        id: 7,
+        title: "Samudranet (Frontend + Backend)",
+        short: "Ocean monitoring and data visualization platform. Full-stack solution for marine data analysis with real-time tracking capabilities.",
+        tags: ["Python", "React", "IoT", "Data Visualization"],
+        demo: null,
+        status: "active",
+        completionDate: "2024",
+        github: "https://github.com/Kaustav-coder-hub/Samudranet_Frontend_Hosting",
+        deployed: false
+      },
+      {
+        id: 8,
+        title: "Auto-Certificate Generator",
+        short: "Automated certificate generation system for events and courses. Batch processing with customizable templates and email distribution.",
+        tags: ["Python", "Automation", "PDF Generation"],
+        demo: null,
+        status: "completed",
+        completionDate: "2024",
+        github: "https://github.com/Kaustav-coder-hub/Auto-Certificate-Genarator",
         deployed: false
       }
     ],
