@@ -136,7 +136,7 @@ export default function AIPoweredPortfolio() {
         short: "ML-powered emotion detection from voice with LSTM networks. Classifies 7 emotions with 87% accuracy using MFCC features.",
         tags: ["ML", "Audio Processing", "TensorFlow", "Python"],
         demo: null,
-        status: "inactive",
+        status: "active",
         completionDate: "2022",
         github: "https://github.com/Kaustav-coder-hub/VocalEmotion",
         deployed: false
