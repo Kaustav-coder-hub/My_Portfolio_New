@@ -532,7 +532,7 @@ CONTACT:
           </div>
         </aside>
 
-        {/* Main column */}
+        {/* Main column - Reduced width to give AI chatbot more space */}
         <main className="col-span-12 lg:col-span-6 xl:col-span-7 space-y-4 sm:space-y-6 lg:space-y-8">
           <section className="relative rounded-2xl sm:rounded-3xl overflow-hidden bg-gradient-to-br from-[#0a1628] via-[#071423] to-[#050a15] shadow-2xl shadow-cyan-500/5 border border-cyan-500/20">
             {/* 3D Background */}
@@ -877,7 +877,7 @@ CONTACT:
           </section>
         </main>
 
-        {/* Right AI Lab Dock - Enhanced */}
+        {/* Right AI Lab Dock - Enhanced with Full Screen Height */}
         <aside className="col-span-12 lg:col-span-3 xl:col-span-3 rounded-2xl sm:rounded-3xl p-4 sm:p-6 bg-gradient-to-br from-[#0a1628]/80 to-[#071423]/60 backdrop-blur-xl border border-cyan-500/20 shadow-2xl shadow-cyan-500/5 lg:sticky lg:top-4 h-fit overflow-hidden">
           <div className="flex items-center gap-3 mb-4">
             <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-400/20 to-pink-500/20 flex items-center justify-center border border-purple-400/30 flex-shrink-0">
@@ -891,11 +891,11 @@ CONTACT:
             </div>
           </div>
 
-          <div className="mt-4 bg-black/40 backdrop-blur-sm rounded-2xl p-3 sm:p-4 h-60 sm:h-72 lg:h-80 overflow-y-auto overflow-x-hidden border border-white/10 scroll-smooth scrollbar-thin scrollbar-thumb-purple-500/20 scrollbar-track-transparent">
+          <div className="mt-4 bg-black/40 backdrop-blur-sm rounded-2xl p-3 sm:p-4 h-[350px] sm:h-[400px] lg:h-[450px] xl:h-[500px] overflow-y-auto overflow-x-hidden border border-white/10 scroll-smooth scrollbar-thin scrollbar-thumb-purple-500/20 scrollbar-track-transparent">
             <div className="space-y-3">
               {messages.map((m, i) => (
                 <div key={i} className={`${m.from === 'assistant' ? 'text-left' : 'text-right'}`}> 
-                  <div className={`inline-block p-3 rounded-2xl text-sm max-w-[85%] ${
+                  <div className={`inline-block p-3 rounded-2xl text-sm max-w-[95%] ${
                     m.from === 'assistant' 
                       ? 'bg-gradient-to-br from-[#1a2332] to-[#0f1621] text-gray-200 border border-white/20 shadow-lg' 
                       : 'bg-gradient-to-r from-purple-500 to-pink-600 text-white shadow-lg shadow-purple-500/30'
