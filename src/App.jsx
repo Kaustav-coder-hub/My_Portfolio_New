@@ -148,7 +148,8 @@ export default function AIPoweredPortfolio() {
       { year: "2023", event: "BCT (Blockchain Technology) Training & Certification" },
       { year: "2024", event: "Cyber Security Certification & Training" },
       { year: "2024", event: "Smart India Hackathon - ISRO Project" },
-      { year: "2024", event: "Deepfake detection web app deployed" }
+      { year: "2024", event: "Deepfake detection web app deployed" },
+      { year: "2025", event: "Joined Codaphics Private Limited as Intern" }
     ],
     skills: [
       "Python", "Pytorch", "TensorFlow", "Embedded C", "Node.js", "React", "Tailwind", "Docker"
@@ -377,8 +378,8 @@ CONTACT:
             })),
             { role: 'user', content: userMsg.text }
           ],
-          temperature: 0.8,
-          max_tokens: 500
+          temperature: 0.7,
+          max_tokens: 200
         })
       });
 
