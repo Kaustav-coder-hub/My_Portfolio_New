@@ -241,6 +241,40 @@ export default function AIPoweredPortfolio() {
     };
   }, []);
 
+  // Build dynamic knowledge base from portfolio data
+  function buildKnowledgeBase() {
+    const projectDetails = projects.map(p => 
+      `**${p.title}** (${p.completionDate}, ${p.status})\n` +
+      `Description: ${p.short}\n` +
+      `Technologies: ${p.tags.join(", ")}\n` +
+      `Deployed: ${p.deployed ? "Yes - Live in production" : "No - Portfolio/Development stage"}`
+    ).join("\n\n");
+
+    return `
+KAUSTAV'S PORTFOLIO KNOWLEDGE BASE:
+
+PROFESSIONAL PROFILE:
+- Name: Kaustav Chakraborty
+- Role: ML & Embedded Systems Engineer
+- Education: JIS College
+- Specialization: Machine Learning, IoT, Computer Vision, Embedded Systems
+
+CURRENT PROJECTS (${projects.length}):
+${projectDetails}
+
+TECHNICAL SKILLS:
+${sampleData.skills.join(", ")}
+
+TIMELINE & MILESTONES:
+${sampleData.timeline.map(t => `• ${t.year}: ${t.event}`).join("\n")}
+
+CONTACT & SOCIAL:
+- GitHub: https://github.com/Kaustav-coder-hub/
+- LinkedIn: https://www.linkedin.com/in/kaustav-chakraborty-2009292a9/
+- Email: kaustav.portfolio@protonmail.com
+`;
+  }
+
   async function sendMessage(evt) {
     evt && evt.preventDefault();
     if (!input.trim() || isTyping) return;
@@ -250,15 +284,38 @@ export default function AIPoweredPortfolio() {
     setInput("");
     setIsTyping(true);
 
-    // Professional context about Kaustav
-    const professionalContext = `
-You are a professional AI assistant for Kaustav Chakraborty's portfolio website. 
+    const systemPrompt = `You are an expert AI advisor for Kaustav Chakraborty's portfolio, acting as a seasoned ML & Embedded Systems engineer.
 
-STRICT RULES:
-1. ONLY answer questions about his professional work, projects, skills, and technical expertise
+YOUR PERSONALITY:
+- Think like a senior engineer reviewing architecture in a technical meeting
+- Explain trade-offs, design choices, scalability, and real-world constraints
+- Ask ONE clarifying professional follow-up if a question is broad (then wait before deep dive)
+- NEVER discuss personal matters - redirect to professional topics
+- Provide detailed technical insights, not surface-level answers
+
+ANALYSIS FRAMEWORK FOR PROJECTS:
+1. Problem Statement - What challenge does it solve?
+2. Technical Architecture - How was it designed?
+3. Design Trade-offs - Why these choices?
+4. Real-world Constraints - Deployment, cost, scalability
+5. Production Status - Live or portfolio stage?
+
+PORTFOLIO KNOWLEDGE BASE:
+${buildKnowledgeBase()}
+
+When explaining projects, use the framework above. For example, if asked about TrackBot:
+- Why ultrasonic sensors (vs alternatives)?
+- Edge processing vs cloud decision
+- Cost optimization
+- Railway deployment challenges
+- Next-gen improvements
+
+STRICT PROFESSIONAL RULES:
+1. ONLY answer about professional work, projects, skills, expertise
 2. NEVER discuss personal life, relationships, family, or private matters
-3. If asked personal questions, politely redirect to professional topics
-4. Base answers on this professional information:
+3. If asked personal questions, redirect: "I focus on professional topics. Would you like to know about [projects/skills/architecture]?"
+
+THIS IS THE KNOWLEDGE BASE:
 
 PROFESSIONAL PROFILE:
 - Name: Kaustav Chakraborty
@@ -293,39 +350,42 @@ Python, PyTorch, TensorFlow, Embedded C, Node.js, React, Tailwind, Docker
 CONTACT:
 - GitHub: https://github.com/Kaustav-coder-hub/
 - LinkedIn: https://www.linkedin.com/in/kaustav-chakraborty-2009292a9/
-
-Answer professionally, technically, and concisely. If question is personal, respond: "I can only discuss Kaustav's professional work and technical projects. Would you like to know about his [projects/skills/technical expertise]?"
+- Email: kaustav.portfolio@protonmail.com
 `;
 
     try {
-      // Check if API key is configured
-      const apiKey = import.meta.env.VITE_OPENAI_API_KEY;
+      const apiKey = import.meta.env.VITE_GROQ_API_KEY;
       
-      if (!apiKey || apiKey === 'your_openai_api_key_here') {
-        // Use fallback responses immediately if no API key
+      if (!apiKey || apiKey === 'your_groq_api_key_here') {
         throw new Error('No API key configured');
       }
 
-      // Call OpenAI API
-      const response = await fetch('https://api.openai.com/v1/chat/completions', {
+      // Use Groq API with Llama model for fast, free inference
+      const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${apiKey}`
         },
         body: JSON.stringify({
-          model: 'gpt-4',
+          model: 'llama-3.3-70b-versatile',
           messages: [
-            { role: 'system', content: professionalContext },
+            { role: 'system', content: systemPrompt },
+            ...messages.map(m => ({
+              role: m.from === 'user' ? 'user' : 'assistant',
+              content: m.text
+            })),
             { role: 'user', content: userMsg.text }
           ],
-          temperature: 0.7,
-          max_tokens: 300
+          temperature: 0.8,
+          max_tokens: 500
         })
       });
 
       if (!response.ok) {
-        throw new Error('API request failed');
+        const errorData = await response.json().catch(() => ({}));
+        console.error('Groq API Error:', errorData);
+        throw new Error(`API request failed: ${response.status}`);
       }
 
       const data = await response.json();
@@ -336,45 +396,12 @@ Answer professionally, technically, and concisely. If question is personal, resp
         { from: "assistant", text: aiResponse }
       ]);
     } catch (error) {
-      // Silently use fallback - no console errors for better UX
+      // Minimal fallback - encourage API setup
+      const fallback = "🤖 I'm ready to provide deep technical insights! To unlock full AI capabilities, please configure your Groq API key (free at console.groq.com). For now, feel free to ask about Kaustav's projects, technical architecture, and professional experience.";
       
-      // Fallback local responses if API fails
-      const lower = userMsg.text.toLowerCase();
-      let fallbackResponse = "";
-
-      // Check for personal questions
-      if (lower.match(/\b(personal|family|girlfriend|boyfriend|relationship|private|age|birthday|address|phone)\b/)) {
-        fallbackResponse = "I can only discuss Kaustav's professional work and technical projects. Would you like to know about his projects, skills, or technical expertise?";
-      }
-      // Project-specific responses
-      else if (lower.includes("deepfake") || lower.includes("fake")) {
-        fallbackResponse = "The Deepfake Detection project uses ConvNeXt/ViT-based models achieving 94% accuracy. It's a full-stack web app with Streamlit/Flask backend and real-time video frame analysis. Technologies: PyTorch, Computer Vision, Flask. It's currently deployed and active!";
-      }
-      else if (lower.includes("trackbot") || lower.includes("railway")) {
-        fallbackResponse = "TrackBot is a production-ready IoT system for railway crack detection using ultrasonic sensors and vibration analysis. It has a real-time reporting dashboard for maintenance teams. Built with Raspberry Pi, Python, and MQTT protocol.";
-      }
-      else if (lower.includes("dustbin") || lower.includes("waste")) {
-        fallbackResponse = "The Autonomous Dustbin is a smart waste management system with 7-sensor classification for metal, plastic, glass, and organic materials. It features solar power management and automated sorting mechanisms using Arduino and ML.";
-      }
-      else if (lower.includes("vocal") || lower.includes("emotion")) {
-        fallbackResponse = "VocalEmotion is an ML-powered system that detects 7 emotions from voice with 87% accuracy using LSTM networks and MFCC features. Built with TensorFlow and Python for audio processing.";
-      }
-      else if (lower.includes("skill") || lower.includes("technology")) {
-        fallbackResponse = `Kaustav's technical skills include: ${sampleData.skills.join(", ")}. He specializes in ML systems, IoT devices, and combining hardware with lightweight ML models.`;
-      }
-      else if (lower.includes("project")) {
-        fallbackResponse = `Kaustav has ${projects.length} major projects: ${projects.map(p => p.title).join(", ")}. Which one would you like to know more about?`;
-      }
-      else if (lower.includes("contact") || lower.includes("reach") || lower.includes("email")) {
-        fallbackResponse = "You can reach Kaustav through GitHub (https://github.com/Kaustav-coder-hub/) or LinkedIn (https://www.linkedin.com/in/kaustav-chakraborty-2009292a9/). Feel free to connect for professional collaborations!";
-      }
-      else {
-        fallbackResponse = `I'm here to discuss Kaustav's professional work. You can ask about:\n• His 4 major projects (Deepfake Detection, TrackBot, Autonomous Dustbin, VocalEmotion)\n• Technical skills and expertise\n• Technologies he works with\n• How to collaborate or get in touch`;
-      }
-
       setMessages((m) => [
         ...m,
-        { from: "assistant", text: fallbackResponse }
+        { from: "assistant", text: fallback }
       ]);
     } finally {
       setIsTyping(false);
